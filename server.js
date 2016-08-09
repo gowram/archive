@@ -24,7 +24,7 @@ function startFunction() {
     });
 
     app.listen(app.get('port'), function () {
-        console.log('Heroku usage archive application running...');
+        console.log(`Heroku usage archive application running on port :${PORT}`);
     });
 
 }
