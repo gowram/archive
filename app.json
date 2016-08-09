@@ -1,0 +1,47 @@
+{
+  "name": "Salesforce Postgres archive app on Heroku",
+  "description": "",
+  "website": "http://salesforce.com",
+  "repository": "",
+  "keywords": [
+    "Salesforce Connect",
+    "Heroku Postgres",
+    "Salesforce Steelbrick"
+  ],
+  "logo": "//cdn2.hubspot.net/hub/271673/hubfs/2015sf_steelbrick_logo_RGB.png?t=1470411111003&width=400",
+  "image": "//cdn2.hubspot.net/hub/271673/hubfs/2015sf_steelbrick_logo_RGB.png?t=1470411111003&width=400",
+  "addons": [
+    "heroku-postgresql:hobby-dev",
+    "herokuconnect:demo"
+  ],
+  "scripts": {
+     "postdeploy": "npm run build"
+   },
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-nodejs"
+    }
+  ],
+  "env": {
+    "SALESFORCE_USER": {
+      "description": "Your Salesforce username",
+      "required": true
+    },
+    "SALESFORCE_PASSWORD": {
+      "description": "Your Salesforce password",
+      "required": true
+    },
+    "SALESFORCE_TOKEN": {
+      "description": "Your Salesforce token",
+      "required": true
+    },
+    "ARCHIVE_RULE": {
+      "description": "Use your own archive rules ex: ('status__c'='Completed')",
+      "required": true
+    },
+    "CRON_TIME": {
+      "description": "Schedule archive task ex: ('0 0 * * * *')",
+      "required": true
+    }
+  }
+}
