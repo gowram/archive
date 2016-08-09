@@ -2,14 +2,15 @@
   "name": "heroku-usage-archive",
   "version": "0.0.1",
   "private": true,
-  "main":"app.js",
-  "author":"r.venkatachalam@salesforce.com",
+  "main": "app.js",
+  "author": "r.venkatachalam@salesforce.com",
   "devDependencies": {
     "react-scripts": "0.2.1"
   },
   "dependencies": {
     "react": "^15.2.1",
-    "react-dom": "^15.2.1"
+    "react-dom": "^15.2.1",
+    "throng": "^4.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -20,6 +21,6 @@
     "extends": "./node_modules/react-scripts/config/eslint.js"
   },
   "engines": {
-   "node": ">=6.2.1"
- }
+    "node": ">=6.2.1"
+  }
 }
