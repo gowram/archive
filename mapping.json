@@ -1,0 +1,158 @@
+{
+    "mappings": [
+        {
+            "object_name": "Usage_Charge__c",
+            "config": {
+                "indexes": {
+                    "Invoice__c": {
+                        "unique": false
+                    },
+                    "LastModifiedDate": {
+                        "unique": false
+                    },
+                    "Order_Rate_Plan_Charge__c": {
+                        "unique": false
+                    },
+                    "SystemModstamp": {
+                        "unique": false
+                    },
+                    "UsageMediation__c": {
+                        "unique": false
+                    },
+                    "Id": {
+                        "unique": true
+                    }
+                },
+                "access": "read_write",
+                "sf_max_daily_api_calls": 30000,
+                "sf_polling_seconds": 120,
+                "fields": {
+                    "Order__c": {},
+                    "Quantity__c": {},
+                    "Account__c": {},
+                    "ErrorReason__c": {},
+                    "Start_Date__c": {},
+                    "CreatedById": {},
+                    "CreatedDate": {},
+                    "LastModifiedDate": {},
+                    "Status__c": {},
+                    "End_Date__c": {},
+                    "UsageMediation__r__ServiceGroupId__c": {},
+                    "StartDateTime__c": {},
+                    "EndDateTime__c": {},
+                    "Order_Rate_Plan_Charge__r__Billing_Group__c": {},
+                    "Invoice__c": {},
+                    "UsageMediation__c": {},
+                    "IsDeleted": {},
+                    "OwnerId": {},
+                    "SystemModstamp": {},
+                    "Invoice_Line__c": {},
+                    "Line_Name__c": {},
+                    "MediationStatus__c": {},
+                    "Id": {},
+                    "LastModifiedById": {},
+                    "LastActivityDate": {},
+                    "Order_Rate_Plan_Charge__c": {},
+                    "UOM__c": {},
+                    "Name": {},
+                    "Master_Usage__c": {},
+                    "Invoice__r__Custom_Invoice_Number__c": {}
+                },
+                "sf_notify_enabled": true
+            }
+        },
+        {
+            "object_name": "Usage_Staging__c",
+            "config": {
+                "indexes": {
+                    "LastModifiedDate": {
+                        "unique": false
+                    },
+                    "OrderRatePlanCharge__c": {
+                        "unique": false
+                    },
+                    "Id": {
+                        "unique": true
+                    },
+                    "SystemModstamp": {
+                        "unique": false
+                    }
+                },
+                "access": "read_write",
+                "sf_max_daily_api_calls": 30000,
+                "sf_polling_seconds": 120,
+                "fields": {
+                    "CreatedDate": {},
+                    "UsageMediation__c": {},
+                    "IsDeleted": {},
+                    "OwnerId": {},
+                    "OrderRatePlanCharge__r__Billing_Group__c": {},
+                    "SystemModstamp": {},
+                    "ErrorReason__c": {},
+                    "Name": {},
+                    "LastModifiedById": {},
+                    "Import_File_Data__c": {},
+                    "StagingStartDate__c": {},
+                    "LastModifiedDate": {},
+                    "Quantity__c": {},
+                    "StagingEndDate__c": {},
+                    "OrderRatePlanCharge__c": {},
+                    "CreatedById": {},
+                    "Status__c": {},
+                    "Id": {}
+                },
+                "sf_notify_enabled": true
+            }
+        },
+        {
+            "object_name": "Usage_Mediation__c",
+            "config": {
+                "indexes": {
+                    "OrderRatePlanCharge__c": {
+                        "unique": false
+                    },
+                    "Id": {
+                        "unique": true
+                    },
+                    "SystemModstamp": {
+                        "unique": false
+                    }
+                },
+                "access": "read_write",
+                "sf_max_daily_api_calls": 30000,
+                "sf_polling_seconds": 120,
+                "fields": {
+                    "MediationEndDate__c": {},
+                    "Account__c": {},
+                    "UnbilledQuantity__c": {},
+                    "AppliedUnitPrice__c": {},
+                    "CreatedById": {},
+                    "CreatedDate": {},
+                    "Status__c": {},
+                    "TotalQuantity__c": {},
+                    "GroupedQuantity__c": {},
+                    "MediationStartDate__c": {},
+                    "BilledQuantity__c": {},
+                    "OrderRatePlanCharge__c": {},
+                    "ServiceGroupId__c": {},
+                    "Order__c": {},
+                    "IsDeleted": {},
+                    "OwnerId": {},
+                    "SystemModstamp": {},
+                    "InvoiceLineIds__c": {},
+                    "Id": {},
+                    "LastModifiedById": {},
+                    "OrderRatePlanCharge__r__Billing_Group__c": {},
+                    "Name": {}
+                },
+                "sf_notify_enabled": true
+            }
+        }
+    ],
+    "version": 1,
+    "connection": {
+        "app_name": "usageapp",
+        "exported_at": "2016-07-15T04:25:33.674591+00:00",
+        "organization_id": "00D28000001PPZqEAO"
+    }
+}

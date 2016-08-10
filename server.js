@@ -4,6 +4,8 @@ const express = require('./node_modules/react-scripts/node_modules/express');
 const app = express();
 const path = require('path');
 
+var force = require('./force');
+
 
 const PORT = process.env.PORT || 5000;
 
@@ -23,6 +25,21 @@ function startFunction() {
         res.render("index.html");
     });
 
+    app.get('/mapping', function (req, res) {
+        force.getMapping
+            .then(data => {
+                res.json({
+                    success: true,
+                    data
+                });
+            })
+            .catch(error => {
+                res.json({
+                    success: false,
+                    error: error.message || error
+                });
+            });
+    });
     app.listen(app.get('port'), function () {
         console.log(`Heroku usage archive application running on port :${PORT}`);
     });
