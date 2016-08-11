@@ -14,7 +14,7 @@ const config = {
         pass: process.env.SALESFORCE_PASSWORD || 'Rama_2016',
         token: process.env.SALESFORCE_TOKEN || 'oLhTN81i2ehWJ3pO5J3fqwodN',
         namespace: process.env.SF_PKG_NAMESPACE || 'Invoice_it__',
-        archiveObject: process.env.ARCHIVE_OBJECT || 'Usage_Charge__c',
+        archiveObject: process.env.ARCHIVE_OBJECT || ['Usage_Charge__c'],
         archiveRule: process.env.ARCHIVE_RULE,
         cronTime: process.env.CRON_TIME
     },
@@ -26,8 +26,5 @@ const config = {
 if (process.env.NODE_ENV !== 'test') {
     config.database.pgUri = `${config.database.pgUri}?ssl=true`
 }
-
-//logger.default.transports.console.colorize = true
-//logger.level = config.logger.level
 
 module.exports = config

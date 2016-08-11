@@ -1,6 +1,6 @@
 const jsforce = require('jsforce');
 const config = require('./config');
-const conn = new jsforce.Connection();
+const logger = require('winston');
 
 var mapConfig = {
   version: 1,
@@ -40,24 +40,53 @@ function toObject(arr) {
   return rv;
 }
 
+function isEmptyObject(obj) {
+  return JSON.stringify(obj) === '{}';
+}
 
 
-exports.getMapping = new Promise(
-  function (resolve, reject) {
-    if (!(config.salesforce.user && config.salesforce.pass && config.salesforce.token)) {
-      reject('Saleforce connection param missing...')
-    } else {
-      conn.login(config.salesforce.user, `${config.salesforce.pass}${config.salesforce.token}`, function (err, userInfo) {
-        if (err) {           
-          throw err;
-        }
-        
-        mapConfig.connection.organization_id = userInfo.organizationId;
-        conn.metadata.read('CustomObject', ['Usage_Staging__c'], function (err, meta) {
-          if (err) { reject(err); }
-          mapConfig.mappings[0].config = toObject(meta.fields);
-          resolve(mapConfig);
-        });
-      });
+exports.getMapping = new Promise(function (resolve, reject) {
+
+  login = function () {
+    if (!this.loggedIn) {
+      if (!(config.salesforce.appName && config.salesforce.user && config.salesforce.pass && config.salesforce.token)) {
+        this.loggedIn = Promise.reject('Login variables and/or app name missing')
+      } else {
+        this.connection = new jsforce.Connection()
+        this.loggedIn = this.connection.login(config.salesforce.user, `${config.salesforce.pass}${config.salesforce.token}`)
+      }
+      this.loggedIn
+        .then((userInfo) => {
+          mapConfig.connection.organization_id = userInfo.organizationId
+          logger.info('salesforce#login: success')
+        })
+        .catch((err) => {
+          reject(err)
+        })
     }
-  });
+    return this.loggedIn
+  }
+
+
+  getMeta = function (con) {
+    con.metadata.read('CustomObject', config.salesforce.archiveObject)
+      .then((result) => {        
+        if (!isEmptyObject(result)) {
+          mapConfig.mappings[0].config = toObject(result.fields)
+          resolve(mapConfig)
+        } else {
+          reject('Invalid Archive Object')          
+        }
+      })
+  }
+
+  return login()
+    .then(() => {
+      return getMeta(this.connection)      
+    })
+    .catch((err) => {
+      reject(err)
+    })
+
+});
+
