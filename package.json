@@ -8,10 +8,10 @@
     "react-scripts": "0.2.1"
   },
   "dependencies": {
+    "express": "^4.14.0",
     "jsforce": "^1.7.0",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
-    "react-scripts": "^0.2.1",
     "throng": "^4.0.0",
     "winston": "^2.2.0"
   },

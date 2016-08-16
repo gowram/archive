@@ -1,6 +1,6 @@
 const throng = require('throng');
 const WORKERS = process.env.WEB_CONCURRENCY || 1;
-const express = require('./node_modules/react-scripts/node_modules/express');
+const express = require('express');
 const app = express();
 const path = require('path');
 
@@ -23,7 +23,7 @@ function startFunction() {
     app.set('port', PORT);
 
     app.get('/', function (req, res) {
-        res.render("index.html");
+        res.render("build/index.html");
     });
 
     app.get('/mapping', function (req, res) {

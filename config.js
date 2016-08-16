@@ -9,7 +9,7 @@ const config = {
         port: process.env.PORT || 5000
     },
     salesforce: {
-        appName: process.env.APP_NAME = 'usageapp',
+        appName: process.env.APP_NAME,
         user: process.env.SALESFORCE_USER || 'ramac@billing.lightning.com',
         pass: process.env.SALESFORCE_PASSWORD || 'Rama_2016',
         token: process.env.SALESFORCE_TOKEN || 'oLhTN81i2ehWJ3pO5J3fqwodN',
