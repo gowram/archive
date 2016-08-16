@@ -3,11 +3,13 @@ const WORKERS = process.env.WEB_CONCURRENCY || 1;
 const express = require('express');
 const app = express();
 const path = require('path');
+const os = require('os');
 
 var force = require('./force');
 
 console.log(process.env);
 
+console.log("OS:hostname - ", os.hostname());
 const PORT = process.env.PORT || 5000;
 
 throng({
