@@ -6,6 +6,7 @@ const path = require('path');
 
 var force = require('./force');
 
+console.log(process.env);
 
 const PORT = process.env.PORT || 5000;
 
