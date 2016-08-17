@@ -6,11 +6,8 @@ Heroku postgres based archive solution for steelbrick usage billing.
 
 The simplest and recommended method of installation is through Heroku. Simply click the button below.
 
-### git.soma repo
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://git.soma.salesforce.com/r-venkatachalam/heroku-usage-archive/tree/master)
-
-### gitlab repo
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://gitlab.com/ramachandran/heroku-usage-archive/tree/master)
+### github open
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/gowram/archive/tree/master)
 
 ### Local Installation
 
