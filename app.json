@@ -37,11 +37,13 @@
      "required": true
     },
     "ARCHIVE_RULE": {
-      "description": "Use your own archive rules ex: ('status__c'='Completed')",
+      "description": "Use your own archive rules",
+      "value": "'status__c'='Completed'",
       "required": false
     },
     "CRON_TIME": {
-      "description": "Schedule archive task ex: ('0 0 * * * *')",
+      "description": "Schedule archive task",
+      "value":"0 0 * * * *",
       "required": false
     }
   }

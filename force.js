@@ -7,27 +7,35 @@ var mapConfig = {
   connection: {
     app_name: config.salesforce.appName,
     exported_at: new Date().toISOString(),
-    organization_id: ""
+    organization_id: ''
   },
   mappings: [
     {
-      object_name: config.salesforce.archiveObject,
-      config: {
-        access: "read_write",
-        sf_max_daily_api_calls: 30000,
-        sf_polling_seconds: 120,
-        sf_notify_enabled: true,
-        indexes: {},
-        fields: {}
-      }
+      object_name: config.salesforce.archiveObject[0],
+      config: {}
     }
   ]
 }
 
 function toObject(arr) {
   var rv = {
-    'fields': {},
-    'indexes': {}
+    access: "read_write",
+    sf_max_daily_api_calls: 30000,
+    sf_polling_seconds: 120,
+    sf_notify_enabled: true,
+    'fields': {
+      "Id": {},
+      "CreatedDate": {},
+      "Name": {},
+      "IsDeleted": {},
+      "SystemModstamp": {}
+    },
+    'indexes': {
+      "Id": { "unique": true },
+      "CreatedDate": { "unique": false },
+      "Name": { "unique": false },
+      "SystemModstamp": { "unique": false }
+    }
   };
   for (var i = 0; i < arr.length; ++i) {
     var formula = arr[i].formula;
@@ -70,19 +78,19 @@ exports.getMapping = new Promise(function (resolve, reject) {
 
   getMeta = function (con) {
     con.metadata.read('CustomObject', config.salesforce.archiveObject)
-      .then((result) => {        
+      .then((result) => {
         if (!isEmptyObject(result)) {
           mapConfig.mappings[0].config = toObject(result.fields)
           resolve(mapConfig)
         } else {
-          reject('Saleforce object name invalid, cannot be archived.')          
+          reject('Saleforce object name invalid, cannot be archived.')
         }
       })
   }
 
   return login()
     .then(() => {
-      return getMeta(this.connection)      
+      return getMeta(this.connection)
     })
     .catch((err) => {
       reject(err)
