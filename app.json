@@ -12,8 +12,7 @@
   "image": "//cdn2.hubspot.net/hub/271673/hubfs/2015sf_steelbrick_logo_RGB.png?t=1470411111003&width=400",
   "addons": [
     "heroku-postgresql:hobby-dev",
-    "herokuconnect:demo",
-    "labs:enable runtime-dyno-metadata"
+    "herokuconnect:demo"
   ],  
   "scripts": {
      "postdeploy": "npm run build"
