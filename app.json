@@ -12,8 +12,9 @@
   "image": "//cdn2.hubspot.net/hub/271673/hubfs/2015sf_steelbrick_logo_RGB.png?t=1470411111003&width=400",
   "addons": [
     "heroku-postgresql:hobby-dev",
-    "herokuconnect:demo"
-  ],
+    "herokuconnect:demo",
+    "labs:enable runtime-dyno-metadata"
+  ],  
   "scripts": {
      "postdeploy": "npm run build"
    },
@@ -23,6 +24,7 @@
     }
   ],
   "env": {
+    "HEROKU_APP_NAME":"",
     "SALESFORCE_USER": {
       "description": "Your Salesforce username",
       "required": true
