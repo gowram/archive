@@ -1,15 +1,15 @@
 {
-  "name": "Salesforce Postgres archive app on Heroku",
+  "name": "heroku_usage_archive",
   "description": "",
   "website": "http://salesforce.com",
-  "repository": "",
+  "repository": "https://github.com/gowram/archive",
   "keywords": [
     "Salesforce Connect",
     "Heroku Postgres",
     "Salesforce Steelbrick"
   ],
-  "logo": "//cdn2.hubspot.net/hub/271673/hubfs/2015sf_steelbrick_logo_RGB.png?t=1470411111003&width=400",
-  "image": "//cdn2.hubspot.net/hub/271673/hubfs/2015sf_steelbrick_logo_RGB.png?t=1470411111003&width=400",
+  "logo": "https://cdn2.hubspot.net/hub/271673/hubfs/2015sf_steelbrick_logo_RGB.png%3Ft=1470411111003&width=400",
+  "image": "https://cdn2.hubspot.net/hub/271673/hubfs/2015sf_steelbrick_logo_RGB.png%3Ft=1470411111003&width=400",
   "addons": [
     "heroku-postgresql:hobby-dev",
     "herokuconnect:demo"
