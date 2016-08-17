@@ -50,7 +50,7 @@ exports.getMapping = new Promise(function (resolve, reject) {
   login = function () {
     if (!this.loggedIn) {
       if (!(config.salesforce.appName && config.salesforce.user && config.salesforce.pass && config.salesforce.token)) {
-        this.loggedIn = Promise.reject('Login variables and/or app name missing')
+        this.loggedIn = Promise.reject('Saleforce login params or app name missing')
       } else {
         this.connection = new jsforce.Connection()
         this.loggedIn = this.connection.login(config.salesforce.user, `${config.salesforce.pass}${config.salesforce.token}`)
@@ -75,7 +75,7 @@ exports.getMapping = new Promise(function (resolve, reject) {
           mapConfig.mappings[0].config = toObject(result.fields)
           resolve(mapConfig)
         } else {
-          reject('Invalid Archive Object')          
+          reject('Saleforce object name invalid, cannot be archived.')          
         }
       })
   }

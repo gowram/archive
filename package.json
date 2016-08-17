@@ -25,6 +25,6 @@
     "extends": "./node_modules/react-scripts/config/eslint.js"
   },
   "engines": {
-    "node": ">=6.2.1"
+    "node": ">=6.4.0"
   }
 }

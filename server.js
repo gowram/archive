@@ -7,9 +7,6 @@ const os = require('os');
 
 var force = require('./force');
 
-console.log(process.env);
-
-console.log("OS:hostname - ", os.hostname());
 const PORT = process.env.PORT || 5000;
 
 throng({
