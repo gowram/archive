@@ -6,6 +6,7 @@ const path = require('path');
 const os = require('os');
 
 var force = require('./force');
+var setup = require('./setup');
 
 const PORT = process.env.PORT || 5000;
 
@@ -39,6 +40,10 @@ function startFunction() {
                     error: error.message || error
                 });
             });
+    });
+    app.get('/reload', function (req, res) {
+        setup.run()
+        res.json({message:'started heroku-connect mapping process.'})            
     });
     app.listen(app.get('port'), function () {
         console.log(`Heroku usage archive application running on port :${PORT}`);

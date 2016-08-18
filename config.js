@@ -10,13 +10,14 @@ const config = {
     },
     salesforce: {
         appName: process.env.HEROKU_APP_NAME,
+        apiKey: process.env.HEROKU_API_KEY,
         user: process.env.SALESFORCE_USER,
         pass: process.env.SALESFORCE_PASSWORD,
         token: process.env.SALESFORCE_TOKEN,
         namespace: process.env.SF_PKG_NAMESPACE || 'Invoice_it__',
-        archiveObject: process.env.ARCHIVE_OBJECT || ['Usage_Charge__c'],
-        archiveRule: process.env.ARCHIVE_RULE || "'status__c'='Completed'",
-        cronTime: process.env.CRON_TIME || '0 0 * * * *'
+        archiveObject: process.env.ARCHIVE_OBJECT || ['Usage_Staging__c'],
+        archiveRule: process.env.ARCHIVE_RULE,
+        cronTime: process.env.CRON_TIME
     },
     meta: {
         env: process.env.NODE_ENV || 'development'

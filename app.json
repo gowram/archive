@@ -13,7 +13,7 @@
   "addons": [
     "heroku-postgresql:hobby-dev",
     "herokuconnect:demo"
-  ],
+  ],  
   "buildpacks": [
     {
       "url": "https://github.com/heroku/heroku-buildpack-nodejs"
@@ -24,17 +24,21 @@
       "description": "Enter your appname same as above",
       "required": true
     },
+    "HEROKU_API_KEY": {
+      "description": "Enter heroku api key",
+      "required": true
+    },
     "SALESFORCE_USER": {
       "description": "Your Salesforce username",
       "required": true
     },
     "SALESFORCE_PASSWORD": {
       "description": "Your Salesforce password",
-     "required": true
+      "required": true
     },
     "SALESFORCE_TOKEN": {
       "description": "Your Salesforce token",
-     "required": true
+      "required": true
     },
     "ARCHIVE_RULE": {
       "description": "Use your own archive rules",
@@ -43,7 +47,7 @@
     },
     "CRON_TIME": {
       "description": "Schedule archive task",
-      "value":"0 0 * * * *",
+      "value": "0 0 * * * *",
       "required": false
     }
   }
