@@ -8,6 +8,7 @@
     "react-scripts": "0.2.1"
   },
   "dependencies": {
+    "axios": "^0.13.1",
     "express": "^4.14.0",
     "jsforce": "^1.7.0",
     "react": "^15.2.1",
