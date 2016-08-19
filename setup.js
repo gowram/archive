@@ -1,12 +1,13 @@
 const force = require('./force')
 const logger = require('winston');
 const axios = require('axios');
-const openurl = require('openurl');
+const open = require('open');
+
 
 var connId;
 
 const apikey = process.env.HEROKU_API_KEY || 'a3a3cea7-4a70-4457-b233-c3eada9eebb3';
-const appName = process.env.HEROKU_APP_NAME || 'dev-archive';
+const appName = process.env.HEROKU_APP_NAME || 'test-dev-archive';
 
 axios.defaults.headers.common['Authorization'] = `Bearer ${apikey}`;
 
@@ -40,18 +41,24 @@ exports.run = function () {
             //authroize heroku-connect to salesforce 
             return axios.request({
                 url: `https://connect-us.heroku.com/api/v3/connections/${connId}/authorize_url`,
-                method: 'POST', data: { "environment": "production","redirect":"https://login.salesforce.com/services/oauth2/authorize?…"}
+                method: 'POST', data: { "environment": "production", "redirect": "https://login.salesforce.com/services/oauth2/authorize?…" }
             })
         })
-        .then(function (response) {           
-            if(response.data && response.data.redirect){
-                openurl.open(response.data.redirect)
-            }            
-            // restart heroku-connect connection.
-            return axios.request({
-                url: ` https://connect-us.heroku.com/api/v3/connections/${connId}/actions/restart`,
-                method: 'POST'
-            })
+        .then(function (response) {
+            console.log(response)
+            if (response.data && response.data.redirect) {
+                open(response.data.redirect)
+                // restart heroku-connect connection.
+                return axios.request({
+                    url: ` https://connect-us.heroku.com/api/v3/connections/${connId}/actions/restart`,
+                    method: 'POST'
+                })
+
+            }
+            else {
+                throw new Error("unable to grant acess to heroku connect")
+            }
+
         })
         .then(function (response) {
             //fetch fields and indexes from salesforce as per heroku-connect mapping format.
