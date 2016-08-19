@@ -1,6 +1,7 @@
 const force = require('./force')
 const logger = require('winston');
 const axios = require('axios');
+const openurl = require('openurl');
 
 var connId;
 
@@ -39,10 +40,13 @@ exports.run = function () {
             //authroize heroku-connect to salesforce 
             return axios.request({
                 url: `https://connect-us.heroku.com/api/v3/connections/${connId}/authorize_url`,
-                method: 'POST', data: { "environment": "production" }
+                method: 'POST', data: { "environment": "production","redirect":"https://login.salesforce.com/services/oauth2/authorize?…"}
             })
         })
-        .then(function (response) {
+        .then(function (response) {           
+            if(response.data && response.data.redirect){
+                openurl.open(response.data.redirect)
+            }            
             // restart heroku-connect connection.
             return axios.request({
                 url: ` https://connect-us.heroku.com/api/v3/connections/${connId}/actions/restart`,
