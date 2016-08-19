@@ -45,19 +45,12 @@ exports.run = function () {
             })
         })
         .then(function (response) {
-            console.log(response)
-            if (response.data && response.data.redirect) {
-                open(response.data.redirect)
-                // restart heroku-connect connection.
-                return axios.request({
-                    url: ` https://connect-us.heroku.com/api/v3/connections/${connId}/actions/restart`,
-                    method: 'POST'
-                })
-
-            }
-            else {
-                throw new Error("unable to grant acess to heroku connect")
-            }
+            open(response.data.redirect)
+            // restart heroku-connect connection.
+            return axios.request({
+                url: ` https://connect-us.heroku.com/api/v3/connections/${connId}/actions/restart`,
+                method: 'POST'
+            })
 
         })
         .then(function (response) {
