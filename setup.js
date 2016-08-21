@@ -43,36 +43,39 @@ exports.run = function (req, res) {
                 url: `https://connect-us.heroku.com/api/v3/connections/${connId}/authorize_url`,
                 method: 'POST', data: { "environment": "production", "redirect": "https://login.salesforce.com/services/oauth2/authorize?…" }
             })
+        })       
+         .then(dt => {
+             var url = dt.data.redirect
+            res.redirect(url)
         })
-        .then(function (response) {
-            open(response.data.redirect)
-            // restart heroku-connect connection.
-            console.log("waiting 5 sec")
-            setTimeout(function () {
-                console.log("waiting over")
-                return axios.request({
-                    url: ` https://connect-us.heroku.com/api/v3/connections/${connId}/actions/restart`,
-                    method: 'POST'
-                })                
-            }, 50000)
+        //     //open(response.data.redirect)
+        //     // restart heroku-connect connection.
+        //     console.log("waiting 2 sec")
+        //     setTimeout(function () {
+        //         console.log("waiting over")
+        //         return axios.request({
+        //             url: ` https://connect-us.heroku.com/api/v3/connections/${connId}/actions/restart`,
+        //             method: 'POST'
+        //         })                
+        //     }, 2000)
 
-        })
-        .then(function (response) {
-            //fetch fields and indexes from salesforce as per heroku-connect mapping format.
-            return loginSF()
-        })
-        .then((con) => fetchObject(con))
-        .then(function (response) {
-            //import config.json to heroku-connect. 
-            return axios.request({
-                url: `https://connect-us.heroku.com/api/v3/connections/${connId}/actions/import`,
-                method: 'POST', data: response
-            })
-        })
-        .then(function (response) {
-            res.json({ msg: response })
-            return (response)
-        })
+        // })
+        // .then(function (response) {
+        //     //fetch fields and indexes from salesforce as per heroku-connect mapping format.
+        //     return loginSF()
+        // })
+        // .then((con) => fetchObject(con))
+        // .then(function (response) {
+        //     //import config.json to heroku-connect. 
+        //     return axios.request({
+        //         url: `https://connect-us.heroku.com/api/v3/connections/${connId}/actions/import`,
+        //         method: 'POST', data: response
+        //     })
+        // })
+        // .then(function (response) {
+        //     res.json({ msg: response })
+        //     return (response)
+        // })
         .catch(function (error) {
             if (error.response) {
                 //console.log(error.response.data.message);
