@@ -1,17 +1,17 @@
-const force = require('./force')
-const logger = require('winston');
-const axios = require('axios');
-const open = require('open');
+var axios = require('axios');
+var open = require('open');
 
+var loginSF = require('./force').loginSF;
+var fetchObject = require('./force').fetchObject;
 
 var connId;
 
-const apikey = process.env.HEROKU_API_KEY || 'a3a3cea7-4a70-4457-b233-c3eada9eebb3';
-const appName = process.env.HEROKU_APP_NAME || 'test-dev-archive';
+var apikey = process.env.HEROKU_API_KEY || 'a3a3cea7-4a70-4457-b233-c3eada9eebb3';
+var appName = process.env.HEROKU_APP_NAME || 'test-dev-archive';
 
 axios.defaults.headers.common['Authorization'] = `Bearer ${apikey}`;
 
-exports.run = function () {
+exports.run = function (req, res) {
     // Link Heroku Account with Heroku-Connect account
     axios.request({
         url: `https://connect-us.heroku.com/api/v3/users/me/apps/${appName}/auth`,
@@ -47,16 +47,21 @@ exports.run = function () {
         .then(function (response) {
             open(response.data.redirect)
             // restart heroku-connect connection.
-            return axios.request({
-                url: ` https://connect-us.heroku.com/api/v3/connections/${connId}/actions/restart`,
-                method: 'POST'
-            })
+            console.log("waiting 5 sec")
+            setTimeout(function () {
+                console.log("waiting over")
+                return axios.request({
+                    url: ` https://connect-us.heroku.com/api/v3/connections/${connId}/actions/restart`,
+                    method: 'POST'
+                })                
+            }, 50000)
 
         })
         .then(function (response) {
             //fetch fields and indexes from salesforce as per heroku-connect mapping format.
-            return force.getMapping
+            return loginSF()
         })
+        .then((con) => fetchObject(con))
         .then(function (response) {
             //import config.json to heroku-connect. 
             return axios.request({
@@ -65,6 +70,7 @@ exports.run = function () {
             })
         })
         .then(function (response) {
+            res.json({ msg: response })
             return (response)
         })
         .catch(function (error) {
@@ -80,4 +86,20 @@ exports.run = function () {
         });
 }
 
-this.run();
+
+exports.reload = function (req, res) {
+    loginSF()
+        .then((con) => fetchObject(con))
+        .then(data => {
+            res.json({
+                success: true,
+                data
+            });
+        })
+        .catch(error => {
+            res.json({
+                success: false,
+                error: error.message || error
+            });
+        });
+}
