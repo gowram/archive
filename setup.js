@@ -6,8 +6,8 @@ var fetchObject = require('./force').fetchObject;
 
 var connId;
 
-var apikey = process.env.HEROKU_API_KEY || 'a3a3cea7-4a70-4457-b233-c3eada9eebb3';
-var appName = process.env.HEROKU_APP_NAME || 'test-dev-archive';
+var apikey = process.env.HEROKU_API_KEY ;
+var appName = process.env.HEROKU_APP_NAME ;
 
 axios.defaults.headers.common['Authorization'] = `Bearer ${apikey}`;
 
@@ -43,60 +43,73 @@ exports.run = function (req, res) {
                 url: `https://connect-us.heroku.com/api/v3/connections/${connId}/authorize_url`,
                 method: 'POST', data: { "environment": "production", "redirect": "https://login.salesforce.com/services/oauth2/authorize?…" }
             })
-        })       
-         .then(dt => {
-             var url = dt.data.redirect
+        })
+        .then(dt => {
+            var url = dt.data.redirect
             res.redirect(url)
         })
-        //     //open(response.data.redirect)
-        //     // restart heroku-connect connection.
-        //     console.log("waiting 2 sec")
-        //     setTimeout(function () {
-        //         console.log("waiting over")
-        //         return axios.request({
-        //             url: ` https://connect-us.heroku.com/api/v3/connections/${connId}/actions/restart`,
-        //             method: 'POST'
-        //         })                
-        //     }, 2000)
-
-        // })
-        // .then(function (response) {
-        //     //fetch fields and indexes from salesforce as per heroku-connect mapping format.
-        //     return loginSF()
-        // })
-        // .then((con) => fetchObject(con))
-        // .then(function (response) {
-        //     //import config.json to heroku-connect. 
-        //     return axios.request({
-        //         url: `https://connect-us.heroku.com/api/v3/connections/${connId}/actions/import`,
-        //         method: 'POST', data: response
-        //     })
-        // })
-        // .then(function (response) {
-        //     res.json({ msg: response })
-        //     return (response)
-        // })
-        .catch(function (error) {
-            if (error.response) {
-                //console.log(error.response.data.message);
-                //console.log(error.response.status);
-                //console.log(error.response.headers);
-                return (error.response.data.message)
-            } else {
-                //console.log('Error', error.message);
-                return (error.message)
-            }
+        .catch(error => {
+            res.json({
+                success: false,
+                error: error.message || error
+            });
         });
+    //     //open(response.data.redirect)
+    //     // restart heroku-connect connection.
+    //     console.log("waiting 2 sec")
+    //     setTimeout(function () {
+    //         console.log("waiting over")
+    //         return axios.request({
+    //             url: ` https://connect-us.heroku.com/api/v3/connections/${connId}/actions/restart`,
+    //             method: 'POST'
+    //         })                
+    //     }, 2000)
+
+    // })
+    // .then(function (response) {
+    //     //fetch fields and indexes from salesforce as per heroku-connect mapping format.
+    //     return loginSF()
+    // })
+    // .then((con) => fetchObject(con))
+    // .then(function (response) {
+    //     //import config.json to heroku-connect. 
+    //     return axios.request({
+    //         url: `https://connect-us.heroku.com/api/v3/connections/${connId}/actions/import`,
+    //         method: 'POST', data: response
+    //     })
+    // })
+    // .then(function (response) {
+    //     res.json({ msg: response })
+    //     return (response)
+    // })
+    // .catch(function (error) {
+    //     if (error.response) {
+    //         //console.log(error.response.data.message);
+    //         //console.log(error.response.status);
+    //         //console.log(error.response.headers);
+    //         return (error.response.data.message)
+    //     } else {
+    //         //console.log('Error', error.message);
+    //         return (error.message)
+    //     }
+    // });
+
 }
 
 
 exports.reload = function (req, res) {
     loginSF()
         .then((con) => fetchObject(con))
-        .then(data => {
+        .then(response => {
+            return axios.request({
+                url: `https://connect-us.heroku.com/api/v3/connections/${connId}/actions/import`,
+                method: 'POST', data: response
+            })
+        })
+        .then((response) => {
             res.json({
                 success: true,
-                data
+                data: response
             });
         })
         .catch(error => {
