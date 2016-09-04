@@ -2,34 +2,34 @@ var jsforce = require('jsforce');
 var config = require('./config');
 
 var mapConfig = {
-  version: 1,
-  connection: {
-    app_name: config.salesforce.appName,
-    exported_at: new Date().toISOString(),
-    organization_id: ''
+  "version": 1,
+  "connection": {
+    "app_name": config.salesforce.appName,
+    "exported_at": new Date().toISOString(),
+    "organization_id": ''
   },
-  mappings: [
+  "mappings": [
     {
-      object_name: config.salesforce.archiveObject[0],
-      config: {}
+      "object_name": config.salesforce.archiveObject[0],
+      "config": {}
     }
   ]
 }
 
 function toObject(arr) {
   var rv = {
-    access: "read_write",
-    sf_max_daily_api_calls: 30000,
-    sf_polling_seconds: 120,
-    sf_notify_enabled: true,
-    'fields': {
+    "access": "read_write",
+    "sf_max_daily_api_calls": 30000,
+    "sf_polling_seconds": 120,
+    "sf_notify_enabled": true,
+    "fields": {
       "Id": {},
       "CreatedDate": {},
       "Name": {},
       "IsDeleted": {},
       "SystemModstamp": {}
     },
-    'indexes': {
+    "indexes": {
       "Id": { "unique": true },
       "CreatedDate": { "unique": false },
       "Name": { "unique": false },
@@ -40,8 +40,8 @@ function toObject(arr) {
     var formula = arr[i].formula;
     if (formula == undefined) {
       var name = arr[i].fullName;
-      rv['fields'][name] = {}
-      rv['indexes'][name] = { 'unique': false }
+      rv["fields"][name] = {}
+      rv["indexes"][name] = { "unique": false }
     }
   }
   return rv;
@@ -82,7 +82,7 @@ var fetchObject = function (con) {
       .then((result) => {
         if (!isEmptyObject(result)) {
           mapConfig.mappings[0].config = toObject(result.fields)
-          console.log(mapConfig)
+         // console.log(mapConfig)
           resolve(mapConfig)
         } else {
           reject('Saleforce object name invalid, cannot be archived.')

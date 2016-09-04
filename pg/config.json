@@ -1,0 +1,72 @@
+{
+    "version": 1,
+    "connection": {
+        "app_name": "test-dev-arhive",
+        "exported_at": "2016-08-22T04:30:21.289Z",
+        "organization_id": "00D28000001PPZqEAO"
+    },
+    "mappings": [
+        {
+            "object_name": "Usage_Staging__c",
+            "config": {
+                "access": "read_write",
+                "sf_max_daily_api_calls": 30000,
+                "sf_polling_seconds": 120,
+                "sf_notify_enabled": true,
+                "fields": {
+                    "Id": {},
+                    "CreatedDate": {},
+                    "Name": {},
+                    "IsDeleted": {},
+                    "SystemModstamp": {},
+                    "AutoNo__c": {},
+                    "ErrorReason__c": {},
+                    "OrderRatePlanCharge__c": {},
+                    "Quantity__c": {},
+                    "StagingEndDate__c": {},
+                    "StagingStartDate__c": {},
+                    "Status__c": {},
+                    "UsageMediation__c": {}
+                },
+                "indexes": {
+                    "Id": {
+                        "unique": true
+                    },
+                    "CreatedDate": {
+                        "unique": false
+                    },
+                    "Name": {
+                        "unique": false
+                    },
+                    "SystemModstamp": {
+                        "unique": false
+                    },
+                    "AutoNo__c": {
+                        "unique": false
+                    },
+                    "ErrorReason__c": {
+                        "unique": false
+                    },
+                    "OrderRatePlanCharge__c": {
+                        "unique": false
+                    },
+                    "Quantity__c": {
+                        "unique": false
+                    },
+                    "StagingEndDate__c": {
+                        "unique": false
+                    },
+                    "StagingStartDate__c": {
+                        "unique": false
+                    },
+                    "Status__c": {
+                        "unique": false
+                    },
+                    "UsageMediation__c": {
+                        "unique": false
+                    }
+                }
+            }
+        }
+    ]
+}

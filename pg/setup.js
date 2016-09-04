@@ -1,13 +1,11 @@
 var axios = require('axios');
-var open = require('open');
-
 var loginSF = require('./force').loginSF;
 var fetchObject = require('./force').fetchObject;
 
 var connId;
 
-var apikey = process.env.HEROKU_API_KEY ;
-var appName = process.env.HEROKU_APP_NAME ;
+var apikey = process.env.HEROKU_API_KEY || 'a3a3cea7-4a70-4457-b233-c3eada9eebb3';
+var appName = process.env.HEROKU_APP_NAME || 'test-dev-arhive';
 
 axios.defaults.headers.common['Authorization'] = `Bearer ${apikey}`;
 
@@ -38,6 +36,7 @@ exports.run = function (req, res) {
             }
         })
         .then(function (response) {
+            console.log("ConnID: ", connId)
             //authroize heroku-connect to salesforce 
             return axios.request({
                 url: `https://connect-us.heroku.com/api/v3/connections/${connId}/authorize_url`,
@@ -54,63 +53,38 @@ exports.run = function (req, res) {
                 error: error.message || error
             });
         });
-    //     //open(response.data.redirect)
-    //     // restart heroku-connect connection.
-    //     console.log("waiting 2 sec")
-    //     setTimeout(function () {
-    //         console.log("waiting over")
-    //         return axios.request({
-    //             url: ` https://connect-us.heroku.com/api/v3/connections/${connId}/actions/restart`,
-    //             method: 'POST'
-    //         })                
-    //     }, 2000)
-
-    // })
-    // .then(function (response) {
-    //     //fetch fields and indexes from salesforce as per heroku-connect mapping format.
-    //     return loginSF()
-    // })
-    // .then((con) => fetchObject(con))
-    // .then(function (response) {
-    //     //import config.json to heroku-connect. 
-    //     return axios.request({
-    //         url: `https://connect-us.heroku.com/api/v3/connections/${connId}/actions/import`,
-    //         method: 'POST', data: response
-    //     })
-    // })
-    // .then(function (response) {
-    //     res.json({ msg: response })
-    //     return (response)
-    // })
-    // .catch(function (error) {
-    //     if (error.response) {
-    //         //console.log(error.response.data.message);
-    //         //console.log(error.response.status);
-    //         //console.log(error.response.headers);
-    //         return (error.response.data.message)
-    //     } else {
-    //         //console.log('Error', error.message);
-    //         return (error.message)
-    //     }
-    // });
-
 }
 
 
 exports.reload = function (req, res) {
+    var mapData;
+
     loginSF()
         .then((con) => fetchObject(con))
         .then(response => {
+            mapData = response
             return axios.request({
-                url: `https://connect-us.heroku.com/api/v3/connections/${connId}/actions/import`,
-                method: 'POST', data: response
+                url: `https://connect-us.heroku.com/api/v3/connections?app=${appName}`,
+                method: 'GET'
             })
         })
-        .then((response) => {
-            res.json({
-                success: true,
-                data: response
-            });
+        .then(function (response) {
+            //validate if id available
+            if (!response.data.count > 0) {
+                throw new Error("Failed to fetch connection id")
+            }
+            else {
+                connId = response.data.results[0].id
+                console.log("connction: ", connId);
+            }
+            return axios.request({
+                url: `https://connect-us.heroku.com/api/v3/connections/${connId}/actions/import`,
+                method: 'POST', headers: { 'Content-Type': 'application/json' }, data: mapData
+            })
+        })
+        .then(() => {
+            console.log("Imported")
+            res.json({ success: true });
         })
         .catch(error => {
             res.json({

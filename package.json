@@ -9,13 +9,14 @@
   },
   "dependencies": {
     "axios": "^0.13.1",
+    "bluebird": "^3.4.6",
     "express": "^4.14.0",
     "jsforce": "^1.7.0",
-    "open": "0.0.5",    
+    "node-cron": "^1.1.2",
+    "pg-promise": "^5.3.2",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
-    "throng": "^4.0.0",
-    "winston": "^2.2.0"
+    "throng": "^4.0.0"
   },
   "scripts": {
     "start": "node server",
@@ -27,6 +28,6 @@
     "extends": "./node_modules/react-scripts/config/eslint.js"
   },
   "engines": {
-    "node": ">=6.4.0"
+    "node": ">=6.5.0"
   }
 }

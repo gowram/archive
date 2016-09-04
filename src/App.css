@@ -2,9 +2,8 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.App-logo { 
+  height: 140px;
 }
 
 .App-header {
@@ -21,4 +20,24 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.btn {
+    padding: 1em 1.5em;
+    border: 0px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgb(255, 255, 255);
+    background-color:rgb(49, 126, 138);   
+}
+
+.btn:hover {
+    background-color:rgb(35, 177, 199);
+   
+}
+
+.btn:disabled {
+    background-color:rgb(164, 174, 174);
+   
 }
