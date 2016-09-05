@@ -4,8 +4,8 @@ var fetchObject = require('./force').fetchObject;
 
 var connId;
 
-var apikey = process.env.HEROKU_API_KEY || 'a3a3cea7-4a70-4457-b233-c3eada9eebb3';
-var appName = process.env.HEROKU_APP_NAME || 'test-dev-arhive';
+var apikey = process.env.HEROKU_API_KEY;
+var appName = process.env.HEROKU_APP_NAME;
 
 axios.defaults.headers.common['Authorization'] = `Bearer ${apikey}`;
 

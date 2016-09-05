@@ -9,15 +9,15 @@ var config = {
         port: process.env.PORT || 5000
     },
     salesforce: {
-        appName: process.env.HEROKU_APP_NAME || 'test-dev-archive',
-        apiKey: process.env.HEROKU_API_KEY || 'a3a3cea7-4a70-4457-b233-c3eada9eebb3',
-        user: process.env.SALESFORCE_USER || 'ramac@billing.lightning.com',
-        pass: process.env.SALESFORCE_PASSWORD || 'Rama_2016',
-        token: process.env.SALESFORCE_TOKEN || 'oLhTN81i2ehWJ3pO5J3fqwodN',
+        appName: process.env.HEROKU_APP_NAME,
+        apiKey: process.env.HEROKU_API_KEY,
+        user: process.env.SALESFORCE_USER,
+        pass: process.env.SALESFORCE_PASSWORD,
+        token: process.env.SALESFORCE_TOKEN,
         namespace: process.env.SF_PKG_NAMESPACE || 'Invoice_it__',
         archiveObject: process.env.ARCHIVE_OBJECT || ['Usage_Staging__c'],
-        archiveRule: process.env.ARCHIVE_RULE || "status__c='Completed'",
-        cronTime: process.env.CRON_TIME || "*/30 * * * * *"
+        archiveRule: process.env.ARCHIVE_RULE,
+        cronTime: process.env.CRON_TIME
     },
     meta: {
         env: process.env.NODE_ENV || 'development'

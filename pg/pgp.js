@@ -5,12 +5,12 @@ var options = {
 };
 
 var pgp = require('pg-promise')(options);
-//serverURL =  `${process.env.DATABASE_URL}?ssl=true`
-var pgURL = 'postgres://kyvzmrufcnkyks:HbK89KK9XA2bJlTlHi5MPt9NIE@ec2-54-83-27-147.compute-1.amazonaws.com:5432/d6i4hivdddi779?ssl=true';
+var pgURL =  `${process.env.DATABASE_URL}?ssl=true`
+//var pgURL = 'postgres://kyvzmrufcnkyks:HbK89KK9XA2bJlTlHi5MPt9NIE@ec2-54-83-27-147.compute-1.amazonaws.com:5432/d6i4hivdddi779?ssl=true';
 var db = pgp(pgURL)
 const schema = 'salesforce'
-const unit = process.env.CRON_TIME || "*/15 * * * * *"
-var qryVal = process.env.ARCHIVE_RULE || "status__c='Completed' limit 2";
+const unit = process.env.CRON_TIME;
+var qryVal = process.env.ARCHIVE_RULE;
 
 exports.createTable = function (req, res) {
 
