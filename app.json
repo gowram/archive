@@ -42,7 +42,7 @@
     },
     "ARCHIVE_RULE": {
       "description": "Use your own archive rules",
-      "value": "'status__c'='Completed'",
+      "value": "status__c='Completed'",
       "required": false
     },
     "CRON_TIME": {
